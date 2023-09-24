@@ -128,7 +128,6 @@ response *response_impl::push(boost::system::error_code &ec, std::string method,
 
 void response_impl::resume() {
   auto handler = strm_->handler();
-  std::cout << "response_impl::resume " << strm_->get_stream_id() << std::endl;
   handler->resume(*strm_);
 }
 
