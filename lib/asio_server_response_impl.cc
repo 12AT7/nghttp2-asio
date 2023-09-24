@@ -125,6 +125,7 @@ response *response_impl::push(boost::system::error_code &ec, std::string method,
 }
 
 void response_impl::resume() {
+	std::cout << "response_impl::resume" << std::endl;
   auto handler = strm_->handler();
   handler->resume(*strm_);
 }

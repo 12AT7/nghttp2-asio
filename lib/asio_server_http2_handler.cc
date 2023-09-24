@@ -415,7 +415,10 @@ void http2_handler::signal_write() {
   if (!inside_callback_ && !write_signaled_) {
     write_signaled_ = true;
     auto self = shared_from_this();
+	  std::cout << "signal_write post" << std::endl;
     io_service_.post([self]() { self->initiate_write(); });
+  } else {
+	  std::cout << "signal_write noop" << std::endl;
   }
 }
 
@@ -425,7 +428,9 @@ void http2_handler::initiate_write() {
 }
 
 void http2_handler::resume(stream &strm) {
-  nghttp2_session_resume_data(session_, strm.get_stream_id());
+	std::cout << "call  session_resume_data" << std::endl;
+  int res = nghttp2_session_resume_data(session_, strm.get_stream_id());
+  std::cout << "session_resume_data result " << res << std::endl;
   signal_write();
 }
 
