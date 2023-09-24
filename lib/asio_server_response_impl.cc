@@ -31,6 +31,8 @@
 
 #include "http2.h"
 
+#include <iostream>
+
 namespace nghttp2 {
 namespace asio_http2 {
 namespace server {
