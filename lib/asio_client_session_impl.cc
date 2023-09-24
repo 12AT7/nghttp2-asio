@@ -444,7 +444,8 @@ void session_impl::resume(stream &strm) {
 	  case NGHTTP2_ERR_INVALID_ARGUMENT:
 		  std::cerr << "nghttp2 invalid argument resuming stream " << strm.stream_id();
 		  break;
-	  case NGHTTP2_ERR_DEBUFFERED_USER:
+	  case NGHTTP2_ERR_NOMEM:
+		  std::cerr << "nghttp2 no memory resuming stream " << strm.stream_id();
 		  break;
 	  default:
 		  std::cerr << "nghttp2 error " << error << ", resuming stream " << strm.stream_id();
