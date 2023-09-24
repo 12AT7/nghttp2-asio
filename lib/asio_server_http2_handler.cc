@@ -420,7 +420,7 @@ void http2_handler::signal_write() {
 	  std::cout << "signal_write post" << std::endl;
     io_service_.post([self]() { self->initiate_write(); });
   } else {
-	  std::cout << "signal_write noop inside: " << inside_callback_ << ", signaled: " << write_signaled_ << << std::endl;
+	  std::cout << "signal_write noop inside: " << inside_callback_ << ", signaled: " << write_signaled_ << std::endl;
   }
 }
 
