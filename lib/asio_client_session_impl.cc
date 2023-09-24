@@ -435,10 +435,12 @@ void session_impl::cancel(stream &strm, uint32_t error_code) {
 
 void session_impl::resume(stream &strm) {
   if (stopped_) {
+	  std::cout << "no resume; stopped" << std::endl;
     return;
   }
 
-  nghttp2_session_resume_data(session_, strm.stream_id());
+  int res = nghttp2_session_resume_data(session_, strm.stream_id());
+  std::cout << "resume result " << res << std::endl;
   signal_write();
 }
 
@@ -589,6 +591,7 @@ boost::asio::io_service &session_impl::io_service() { return io_service_; }
 
 void session_impl::signal_write() {
   if (!inside_callback_) {
+	  std::cout << "call do_write" << std::endl;
     do_write();
   }
 }
@@ -663,10 +666,12 @@ void session_impl::do_read() {
 
 void session_impl::do_write() {
   if (stopped_) {
+	  std::cout << "do_write stopped" << std::endl;
     return;
   }
 
   if (writing_) {
+	  std::cout << "do_write writing" << std::endl;
     return;
   }
 
@@ -688,6 +693,7 @@ void session_impl::do_write() {
       if (n < 0) {
         call_error_cb(make_error_code(static_cast<nghttp2_error>(n)));
         stop();
+		std::cout << "do_write error_cb" << std::endl;
         return;
       }
 
@@ -710,6 +716,7 @@ void session_impl::do_write() {
 
   if (wblen_ == 0) {
     if (should_stop()) {
+		std::cout << "do_write should_stop" << std::endl;
       stop();
     }
     return;
