@@ -398,13 +398,11 @@ int http2_handler::submit_trailer(stream &strm, header_map h) {
 
 void http2_handler::enter_callback() {
   assert(!inside_callback_);
-  std::cout << "enter callback" << std::endl;
   inside_callback_ = true;
 }
 
 void http2_handler::leave_callback() {
   assert(inside_callback_);
-  std::cout << "leave callback" << std::endl;
   inside_callback_ = false;
 }
 
